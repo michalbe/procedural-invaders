@@ -19,5 +19,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w"
+  },
+  "dependencies": {
+    "cervus": "0.0.32"
   }
 }
