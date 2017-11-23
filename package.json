@@ -21,6 +21,7 @@
     "dev": "rollup -c -w"
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
     "cervus": "0.0.32"
   }
 }
