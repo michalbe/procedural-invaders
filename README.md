@@ -1,1 +1,1 @@
-# github-gameoff-17
+# cervus boilerplate
