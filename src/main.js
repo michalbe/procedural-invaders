@@ -1,9 +1,10 @@
 import { Plane } from 'cervus/shapes';
 import { Render, Transform } from 'cervus/components';
 import { game, material } from './globals';
-
+import { set_seed } from 'cervus/core/random';
 import { Enemy, EnemyShape } from './enemy';
 
+// set_seed(1997);
 const camera_transform = game.camera.get_component(Transform);
 camera_transform.position = [0.424, 0.595, -8.845];
 camera_transform.rotation = [-0.112, 0, 0, 0.99];
@@ -21,3 +22,6 @@ const shapeClass = new EnemyShape();
 const enemy = new Enemy({
 	shape: shapeClass.shape
 });
+
+enemy.scale = 0.2;
+game.add(enemy.group);
