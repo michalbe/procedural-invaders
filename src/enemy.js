@@ -10,6 +10,11 @@ export class EnemyShape {
 		this.height = 5;
 		this.shape = [];
 
+		this.size = {
+			y: this.height,
+			x: (this.width * 2) -1
+		};
+
 		for (let y = 0; y < this.height; y++) {
 			this.shape[y] = [];
 			for (let x = 0; x < this.width; x++) {
@@ -17,14 +22,15 @@ export class EnemyShape {
 			}
 			this.shape[y] = this.shape[y].concat(this.shape[y].slice().reverse().splice(1));
 		}
-
-		console.log(this.shape);
 	}
 }
 
 export class Enemy {
 	constructor(options = {}) {
 		this.shape = options.shape;
+		this.elements = [];
+
+		this.color = options.color || '#FFFF00';
 
 		this.transform = new Transform();
 		this.group = new Entity({
@@ -40,9 +46,10 @@ export class Enemy {
 				}
 
 				const box = new Box();
+				this.elements.push(box);
 				box.get_component(Transform).position = [ x, y, 0 ];
 				box.get_component(Render).material = material;
-				box.get_component(Render).color = '0F0';
+				box.get_component(Render).color = this.color;
 				this.group.add(box);
 			});
 		});
@@ -55,5 +62,16 @@ export class Enemy {
 			scale,
 			scale
 		]
+	}
+
+	set position({x, y}) {
+		this.transform.position = [x, y, 0];
+	}
+
+	get position() {
+		return {
+			x: this.transform.position[0],
+			y: this.transform.position[1]
+		}
 	}
 }

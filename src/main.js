@@ -1,13 +1,15 @@
 import { Plane } from 'cervus/shapes';
-import { Render, Transform } from 'cervus/components';
+import { Render, Transform, Move } from 'cervus/components';
 import { game, material } from './globals';
 import { set_seed } from 'cervus/core/random';
-import { Enemy, EnemyShape } from './enemy';
+import { Level } from './level';
 
-// set_seed(1997);
-const camera_transform = game.camera.get_component(Transform);
-camera_transform.position = [0.424, 0.595, -8.845];
+// set_seed(198247);
+
+const camera_transform = window.camera = game.camera.get_component(Transform);
+camera_transform.position = [0.424, 0.595, -12];
 camera_transform.rotation = [-0.112, 0, 0, 0.99];
+game.camera.get_component(Move).keyboard_controlled = true;
 
 const plane = new Plane();
 const plane_transform = plane.get_component(Transform);
@@ -18,10 +20,5 @@ plane_render.material = material;
 plane_render.color = "#ff00ff";
 game.add(plane);
 
-const shapeClass = new EnemyShape();
-const enemy = new Enemy({
-	shape: shapeClass.shape
-});
 
-enemy.scale = 0.2;
-game.add(enemy.group);
+const level = new Level();

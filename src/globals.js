@@ -12,3 +12,8 @@ export const game = new Game({
 export const material = new PhongMaterial({
   requires: [ Render, Transform ]
 });
+
+export const enemies_zone = {
+	x: 7,
+	y: 10
+};
