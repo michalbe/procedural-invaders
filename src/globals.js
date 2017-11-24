@@ -5,8 +5,8 @@ import { Render, Transform } from 'cervus/components';
 export const game = new Game({
   width: window.innerWidth,
   height: window.innerHeight,
-  // fps: 1
-	clear_color: '#000000'
+	clear_color: '#000000',
+	// fps: 1
 });
 
 export const material = new PhongMaterial({
