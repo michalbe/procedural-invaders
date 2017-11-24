@@ -14,14 +14,14 @@
     "rollup-plugin-livereload": "^0.6.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-serve": "^0.4.2",
-    "rollup-watch": "^4.3.1"
+    "rollup-watch": "^4.3.1",
+		"babel-core": "^6.26.0"
   },
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "cervus": "0.0.32"
+    "cervus": "0.0.33"
   }
 }
