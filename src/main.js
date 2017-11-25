@@ -1,10 +1,11 @@
 import { Plane } from 'cervus/shapes';
 import { Render, Transform } from 'cervus/components';
-import { game, material } from './globals';
+import { game, material, shoot_key } from './globals';
 import { set_seed } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(6648);
+set_seed(32167);
+
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
@@ -25,9 +26,10 @@ game.add(plane);
 
 
 const level = new Level({
-	rows: 2,
-	cols: 5,
-	dir: -1
+	rows: 4,
+	cols: 7,
+	dir: 1,
+	delay: 12
 });
 
 game.on('tick', (e) => {
@@ -55,5 +57,20 @@ game.on('tick', (e) => {
 
 	if (~~(e%level.delay) === 0) {
 		level.do_step();
+	}
+
+	if (game.keys[shoot_key] && !level.is_shooting) {
+		level.shoot(player_position);
+	}
+
+	if (level.is_shooting) {
+		level.bullet.position = {
+			x: level.bullet.position.x,
+			y: level.bullet.position.y + level.bullet.speed
+		}
+
+		if (level.bullet.position.y > 13) {
+			level.stop_shooting();
+		}
 	}
 });
