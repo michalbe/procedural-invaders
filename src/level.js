@@ -76,7 +76,6 @@ export class Level {
 	}
 
 	do_step() {
-		console.log('elo');
 		this.enemies.forEach(enemy => {
 			enemy.position = {
 				x: enemy.position.x + (step * this.dir),
