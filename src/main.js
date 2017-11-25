@@ -1,15 +1,17 @@
 import { Plane } from 'cervus/shapes';
-import { Render, Transform, Move } from 'cervus/components';
+import { Render, Transform } from 'cervus/components';
 import { game, material } from './globals';
 import { set_seed } from 'cervus/core/random';
 import { Level } from './level';
 
 set_seed(198007);
 
-window.game = game.light.get_component(Transform);
+const light = game.light.get_component(Transform);
+light.position = [0, 0, -2];
 const camera_transform = window.camera = game.camera.get_component(Transform);
 camera_transform.position = [0.424, 0.595, -12];
 camera_transform.rotation = [-0.112, 0, 0, 0.99];
+
 // game.camera.get_component(Move).keyboard_controlled = true;
 
 const plane = new Plane();
@@ -23,3 +25,12 @@ game.add(plane);
 
 
 const level = new Level();
+
+game.on('tick', () => {
+	light.position = [
+		level.player.position.x,
+		0,
+
+		-2
+	];
+});

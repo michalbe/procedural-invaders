@@ -46,16 +46,16 @@ export class Level {
 	}
 
 	spawn_player() {
-		const player = new Player({
+		this.player = new Player({
 			color: this.player_color
 		});
 
-		player.scale = this.enemy_scale;
-		player.position = {
+		this.player.scale = this.enemy_scale;
+		this.player.position = {
 			x: 0,
 			y: -0.45
 		};
 
-		game.add(player.group);
+		game.add(this.player.group);
 	}
 }

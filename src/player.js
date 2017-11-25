@@ -17,6 +17,12 @@ export class Player extends Thing {
 
 		this.move = new Move();
 		this.move.keyboard_controlled = true;
+		this.move.rotate_speed = 0;
+		this.move.move_speed = 5;
+		delete this.move.dir_desc['69'];
+		delete this.move.dir_desc['81'];
+		delete this.move.dir_desc['87'];
+		delete this.move.dir_desc['83'];
 		this.group.add_component(this.move);
 	}
 }
