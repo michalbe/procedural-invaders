@@ -17,3 +17,5 @@ export const enemies_zone = {
 	x: 7,
 	y: 10
 };
+
+export const shoot_key = 32;
