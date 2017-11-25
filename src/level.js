@@ -1,5 +1,6 @@
 import { Enemy, EnemyShape } from './enemy';
 import { Player} from './player';
+import { Bullet } from './bullet';
 import { game, enemies_zone } from './globals';
 import { integer } from 'cervus/core/random';
 
@@ -8,6 +9,9 @@ export class Level {
 		this.enemies = [];
 
 		this.shapes = [];
+
+		this.is_shooting = false;
+		this.bullet = window.bullet = new Bullet();
 
 		this.enemy_scale = options.enemy_scale || 0.2;
 		this.enemy_color = options.enemy_color;
@@ -27,6 +31,10 @@ export class Level {
 		this.setup_shapes();
 		this.setup_enemies();
 		this.spawn_player();
+	}
+
+	setup_bullet() {
+
 	}
 
 	setup_shapes() {
@@ -75,11 +83,11 @@ export class Level {
 		game.add(this.player.group);
 	}
 
-	do_step(e) {
+	do_step() {
 		this.enemies.forEach(enemy => {
-			// if (this.steps%2 === 0) {
+			if (this.steps%2 === 0) {
 				enemy.change_frames();
-			// }
+			}
 
 			enemy.position = {
 				x: enemy.position.x + (this.enemy_step * this.dir),
@@ -103,5 +111,19 @@ export class Level {
 		}
 
 		this.steps++;
+	}
+
+	shoot(position) {
+		this.is_shooting = true;
+		this.bullet.position = {
+			x: position.x + 2.5,
+			y: position.y + 3
+		};
+		game.add(this.bullet.group);
+	}
+
+	stop_shooting() {
+		game.remove(this.bullet.group);
+		this.is_shooting = false;
 	}
 }
