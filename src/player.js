@@ -15,6 +15,10 @@ export class Player extends Thing {
 
 		super(options);
 
+
+		this.frame = this.build_from_shape(this.shape);
+		this.group.add(this.frame);
+
 		this.move = new Move();
 		this.move.keyboard_controlled = true;
 		this.move.rotate_speed = 0;

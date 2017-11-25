@@ -24,6 +24,7 @@ export class Level {
 		this.margin = this.margin || (this.enemy_scale * 3);
 		this.delay = options.delay || 16;
 
+		this.steps = 0;
 		this.setup_shapes();
 		this.setup_enemies();
 		this.spawn_player();
@@ -46,7 +47,7 @@ export class Level {
 
 	create_enemy(x, y) {
 		const enemy = new Enemy({
-			shape: this.shapes[y%this.shapes.length].shape,
+			shape: this.shapes[y%this.shapes.length],
 			color: this.enemy_color
 		});
 
@@ -75,8 +76,12 @@ export class Level {
 		game.add(this.player.group);
 	}
 
-	do_step() {
+	do_step(e) {
 		this.enemies.forEach(enemy => {
+			if (this.steps%2 === 0) {
+				enemy.change_frames();
+			}
+
 			enemy.position = {
 				x: enemy.position.x + (step * this.dir),
 				y: enemy.position.y
@@ -97,5 +102,7 @@ export class Level {
 				}
 			});
 		}
+
+		this.steps++;
 	}
 }

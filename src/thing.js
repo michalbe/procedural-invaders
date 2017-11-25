@@ -17,7 +17,16 @@ export class Thing {
 			]
 		});
 
-		this.shape.forEach((row, y) => {
+	}
+
+	build_from_shape(shape, visible = true) {
+		const group = new Entity({
+			components: [
+				new Transform()
+			]
+		});
+		
+		shape.forEach((row, y) => {
 			row.forEach((el, x) => {
 				if (el === 0) {
 					return;
@@ -28,9 +37,11 @@ export class Thing {
 				box.get_component(Transform).position = [ x, y, 0 ];
 				box.get_component(Render).material = material;
 				box.get_component(Render).color = this.color;
-				this.group.add(box);
+				group.add(box);
 			});
 		});
+
+		return group;
 	}
 
 	set scale(scale) {
