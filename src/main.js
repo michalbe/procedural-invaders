@@ -4,7 +4,7 @@ import { game, material, shoot_key } from './globals';
 import { set_seed } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(32167);
+set_seed(320167);
 
 
 const light = game.light.get_component(Transform);
@@ -26,10 +26,10 @@ game.add(plane);
 
 
 const level = new Level({
-	rows: 4,
-	cols: 7,
+	rows: 3,
+	cols: 4,
 	dir: 1,
-	delay: 12
+	delay: 16
 });
 
 game.on('tick', (e) => {
