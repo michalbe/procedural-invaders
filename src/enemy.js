@@ -1,4 +1,4 @@
-import { integer, element_of } from 'cervus/core/random';
+import { integer } from 'cervus/core/random';
 import { Thing } from './thing';
 
 export class EnemyShape {
