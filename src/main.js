@@ -4,7 +4,7 @@ import { game, material } from './globals';
 import { set_seed } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(198007);
+// set_seed(4);
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
@@ -24,13 +24,32 @@ plane_render.color = "#ff00ff";
 game.add(plane);
 
 
-const level = new Level();
+const level = new Level({
+	rows: 2,
+	cols: 5,
+	dir: -1
+});
 
 game.on('tick', () => {
-	light.position = [
-		level.player.position.x,
-		0,
+	const player_position = level.player.position;
 
+	light.position = [
+		player_position.x,
+		0,
 		-2
 	];
+
+	if (player_position.x > 8) {
+		level.player.position = {
+			x: 8,
+			y: player_position.y
+		}
+	}
+
+	if (player_position.x < -8) {
+		level.player.position = {
+			x: -8,
+			y: player_position.y
+		}
+	}
 });
