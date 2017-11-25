@@ -22,6 +22,7 @@ export class Level {
 		this.dir = options.dir || 1;
 
 		this.margin = this.margin || (this.enemy_scale * 3);
+		this.delay = options.delay || 16;
 
 		this.setup_shapes();
 		this.setup_enemies();
@@ -75,6 +76,27 @@ export class Level {
 	}
 
 	do_step() {
+		console.log('elo');
+		this.enemies.forEach(enemy => {
+			enemy.position = {
+				x: enemy.position.x + (step * this.dir),
+				y: enemy.position.y
+			}
+		});
 
+		const hit_limit = this.enemies.some(enemy => {
+			return (this.dir === 1 && enemy.position.x > enemies_zone.x)
+				|| (this.dir === -1 && enemy.position.x < -enemies_zone.x);
+		})
+
+		if (hit_limit) {
+			this.dir *= -1;
+			this.enemies.forEach(enemy => {
+				enemy.position = {
+					x: enemy.position.x,
+					y: enemy.position.y - 1
+				}
+			});
+		}
 	}
 }

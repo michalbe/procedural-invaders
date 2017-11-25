@@ -30,7 +30,7 @@ const level = new Level({
 	dir: -1
 });
 
-game.on('tick', () => {
+game.on('tick', (e) => {
 	const player_position = level.player.position;
 
 	light.position = [
@@ -51,5 +51,9 @@ game.on('tick', () => {
 			x: -8,
 			y: player_position.y
 		}
+	}
+
+	if (~~(e%level.delay) === 0) {
+		level.do_step();
 	}
 });
