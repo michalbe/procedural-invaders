@@ -1,30 +1,43 @@
 import { Enemy, EnemyShape } from './enemy';
 import { Player} from './player';
 import { game, enemies_zone } from './globals';
+import { integer, seed } from 'cervus/core/random';
+
+const step = 0.1;
 
 export class Level {
 	constructor(options = {}) {
-		this.shapeClass = new EnemyShape();
-		this.enemy_size = this.shapeClass.size;
+		this.enemies = [];
+
+		this.shapes = [];
+
 		this.enemy_scale = options.enemy_scale || 0.2;
 		this.enemy_color = options.enemy_color;
 
 		this.player_scale = options.player_scale || this.enemy_scale;
 		this.player_color = options.player_color || this.enemy_color;
 
-		this.rows = options.row || 10;
-		this.cols = options.cols || 4;
+		this.rows = options.rows || 4;
+		this.cols = options.cols || 10;
 		this.dir = options.dir || 1;
 
 		this.margin = this.margin || (this.enemy_scale * 3);
 
+		this.setup_shapes();
 		this.setup_enemies();
 		this.spawn_player();
 	}
 
+	setup_shapes() {
+		const shapes = integer(1, 4);
+		for (let i = 0; i< shapes; i++) {
+			this.shapes.push(new EnemyShape());
+		}
+	}
+
 	setup_enemies() {
-		for (let y = 0; y < this.cols; y++) {
-			for (let x = 0; x < this.rows; x++) {
+		for (let y = 0; y < this.rows; y++) {
+			for (let x = 0; x < this.cols; x++) {
 				this.create_enemy(x, y);
 			}
 		}
@@ -32,7 +45,7 @@ export class Level {
 
 	create_enemy(x, y) {
 		const enemy = new Enemy({
-			shape: this.shapeClass.shape,
+			shape: this.shapes[y%this.shapes.length].shape,
 			color: this.enemy_color
 		});
 
@@ -43,6 +56,8 @@ export class Level {
 		};
 
 		game.add(enemy.group);
+
+		this.enemies.push(enemy);
 	}
 
 	spawn_player() {
@@ -57,5 +72,9 @@ export class Level {
 		};
 
 		game.add(this.player.group);
+	}
+
+	do_step() {
+
 	}
 }
