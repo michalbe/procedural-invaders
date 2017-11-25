@@ -4,12 +4,13 @@ import { game, material } from './globals';
 import { set_seed } from 'cervus/core/random';
 import { Level } from './level';
 
-// set_seed(198247);
+set_seed(198007);
 
+window.game = game.light.get_component(Transform);
 const camera_transform = window.camera = game.camera.get_component(Transform);
 camera_transform.position = [0.424, 0.595, -12];
 camera_transform.rotation = [-0.112, 0, 0, 0.99];
-game.camera.get_component(Move).keyboard_controlled = true;
+// game.camera.get_component(Move).keyboard_controlled = true;
 
 const plane = new Plane();
 const plane_transform = plane.get_component(Transform);

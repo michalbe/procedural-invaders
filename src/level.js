@@ -1,4 +1,5 @@
 import { Enemy, EnemyShape } from './enemy';
+import { Player} from './player';
 import { game, enemies_zone } from './globals';
 
 export class Level {
@@ -7,6 +8,10 @@ export class Level {
 		this.enemy_size = this.shapeClass.size;
 		this.enemy_scale = options.enemy_scale || 0.2;
 		this.enemy_color = options.enemy_color;
+
+		this.player_scale = options.player_scale || this.enemy_scale;
+		this.player_color = options.player_color || this.enemy_color;
+
 		this.rows = options.row || 10;
 		this.cols = options.cols || 4;
 		this.dir = options.dir || 1;
@@ -14,6 +19,7 @@ export class Level {
 		this.margin = this.margin || (this.enemy_scale * 3);
 
 		this.setup_enemies();
+		this.spawn_player();
 	}
 
 	setup_enemies() {
@@ -25,7 +31,7 @@ export class Level {
 	}
 
 	create_enemy(x, y) {
-		const enemy = window.enemey = new Enemy({
+		const enemy = new Enemy({
 			shape: this.shapeClass.shape,
 			color: this.enemy_color
 		});
@@ -39,4 +45,17 @@ export class Level {
 		game.add(enemy.group);
 	}
 
+	spawn_player() {
+		const player = new Player({
+			color: this.player_color
+		});
+
+		player.scale = this.enemy_scale;
+		player.position = {
+			x: 0,
+			y: -0.45
+		};
+
+		game.add(player.group);
+	}
 }
