@@ -1,9 +1,7 @@
 import { Enemy, EnemyShape } from './enemy';
 import { Player} from './player';
 import { game, enemies_zone } from './globals';
-import { integer, seed } from 'cervus/core/random';
-
-const step = 0.1;
+import { integer } from 'cervus/core/random';
 
 export class Level {
 	constructor(options = {}) {
@@ -13,6 +11,7 @@ export class Level {
 
 		this.enemy_scale = options.enemy_scale || 0.2;
 		this.enemy_color = options.enemy_color;
+		this.enemy_step = options.enemy_step || 0.1;
 
 		this.player_scale = options.player_scale || this.enemy_scale;
 		this.player_color = options.player_color || this.enemy_color;
@@ -78,12 +77,12 @@ export class Level {
 
 	do_step(e) {
 		this.enemies.forEach(enemy => {
-			if (this.steps%2 === 0) {
+			// if (this.steps%2 === 0) {
 				enemy.change_frames();
-			}
+			// }
 
 			enemy.position = {
-				x: enemy.position.x + (step * this.dir),
+				x: enemy.position.x + (this.enemy_step * this.dir),
 				y: enemy.position.y
 			}
 		});

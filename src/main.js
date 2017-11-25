@@ -4,7 +4,7 @@ import { game, material } from './globals';
 import { set_seed } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(1997);
+set_seed(6648);
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];

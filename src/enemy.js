@@ -26,7 +26,6 @@ export class EnemyShape {
 
 		// This is poor man's animation
 		this.second_shape = this.create_second_shape(this.second_shape);
-		console.log(this.second_shape);
 	}
 
 	create_second_shape(shape) {
