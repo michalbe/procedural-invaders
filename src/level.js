@@ -18,7 +18,6 @@ export class Level {
 		this.enemy_step = options.enemy_step || 0.1;
 
 		this.player_scale = options.player_scale || this.enemy_scale;
-		this.player_color = options.player_color || this.enemy_color;
 
 		this.rows = options.rows || 4;
 		this.cols = options.cols || 10;
@@ -67,9 +66,7 @@ export class Level {
 	}
 
 	spawn_player() {
-		this.player = new Player({
-			color: this.player_color
-		});
+		this.player = new Player();
 
 		this.player.scale = this.enemy_scale;
 		this.player.position = {

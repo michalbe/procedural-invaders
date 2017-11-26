@@ -1,10 +1,10 @@
 import { Plane } from 'cervus/shapes';
 import { Render, Transform, RigidBody } from 'cervus/components';
 import { game, material, shoot_key, enemies_zone, physics_world } from './globals';
-import { set_seed } from 'cervus/core/random';
+import { set_seed, integer } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(13220967);
+set_seed(8000000967);
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
@@ -20,7 +20,7 @@ const plane_render = plane.get_component(Render);
 plane_transform.scale = [20, 1, 20];
 plane_transform.position = [0.5, -0.5, 0.5];
 plane_render.material = material;
-plane_render.color = "#ff00ff";
+plane_render.color = "#333";
 
 plane.add_component(new RigidBody({
 	world: physics_world,
@@ -32,8 +32,8 @@ game.add(plane);
 
 
 const level = new Level({
-	rows: 3,
-	cols: 4,
+	rows: integer(2, 5),
+	cols: integer(3, 10),
 	dir: 1,
 	delay: 16
 });

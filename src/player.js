@@ -15,7 +15,7 @@ export class Player extends Thing {
 
 		super(options);
 
-
+		this.color = '#CCC';
 		this.frame = this.build_from_shape(this.shape);
 		this.group.add(this.frame);
 
