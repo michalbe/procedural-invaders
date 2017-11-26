@@ -4,7 +4,7 @@ import { game, material, shoot_key, enemies_zone, physics_world } from './global
 import { set_seed, integer } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(8000000967);
+set_seed(2800967);
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
@@ -20,7 +20,7 @@ const plane_render = plane.get_component(Render);
 plane_transform.scale = [20, 1, 20];
 plane_transform.position = [0.5, -0.5, 0.5];
 plane_render.material = material;
-plane_render.color = "#333";
+plane_render.color = "333333";
 
 plane.add_component(new RigidBody({
 	world: physics_world,
@@ -32,10 +32,11 @@ game.add(plane);
 
 
 const level = new Level({
-	rows: integer(2, 5),
+	rows: integer(2, 6),
 	cols: integer(3, 10),
 	dir: 1,
-	delay: 16
+	delay: 16,
+	enemy_color: (integer(10, 245)).toString(16) + '' + (integer(10, 245)).toString(16) + '' + (integer(10, 245)).toString(16)
 });
 
 game.on('tick', (e) => {

@@ -46,13 +46,15 @@ export class Enemy extends Thing {
 	constructor(options) {
 		super(options);
 
+		this.starting_row = options.starting_row || 0;
+
 		this.count = 0;
 
 		this.frames_count = 2;
 		this.active_frame = 1;
 		this.frames = [
-			this.build_from_shape(options.shape.shape),
-			this.build_from_shape(options.shape.second_shape),
+			this.build_from_shape(options.shape.shape, this.starting_row),
+			this.build_from_shape(options.shape.second_shape, this.starting_row)
 		];
 
 		this.group.add(this.frames[this.active_frame]);

@@ -49,8 +49,10 @@ export class Level {
 
 	create_enemy(x, y) {
 		const enemy = new Enemy({
+			starting_row: y,
 			shape: this.shapes[y%this.shapes.length],
-			color: this.enemy_color
+			color: this.enemy_color,
+			staring_row: y
 		});
 
 		window.enemy = enemy;

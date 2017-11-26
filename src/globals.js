@@ -18,7 +18,17 @@ export const material = new PhongMaterial({
 
 export const enemies_zone = {
 	x: 7,
-	y: 10
+	y: 11
 };
 
 export const shoot_key = 32;
+
+export function lighter_color(col, amt) {
+    var num = parseInt(col,16);
+    var r = (num >> 16) + amt;
+    var b = ((num >> 8) & 0x00FF) + amt;
+    var g = (num & 0x0000FF) + amt;
+    var newColor = g | (b << 8) | (r << 16);
+    console.log(col, newColor.toString(16));
+    return newColor.toString(16);
+}
