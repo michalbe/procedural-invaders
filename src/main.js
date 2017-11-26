@@ -1,6 +1,6 @@
 import { Plane } from 'cervus/shapes';
-import { Render, Transform } from 'cervus/components';
-import { game, material, shoot_key, enemies_zone } from './globals';
+import { Render, Transform, RigidBody } from 'cervus/components';
+import { game, material, shoot_key, enemies_zone, physics_world } from './globals';
 import { set_seed } from 'cervus/core/random';
 import { Level } from './level';
 
@@ -21,6 +21,13 @@ plane_transform.scale = [20, 1, 20];
 plane_transform.position = [0.5, -0.5, 0.5];
 plane_render.material = material;
 plane_render.color = "#ff00ff";
+
+plane.add_component(new RigidBody({
+	world: physics_world,
+	shape: 'box',
+	mass: Infinity
+}));
+
 game.add(plane);
 
 
@@ -74,4 +81,6 @@ game.on('tick', (e) => {
 			level.stop_shooting();
 		}
 	}
+
+	physics_world.step(1/game.fps);
 });

@@ -1,5 +1,7 @@
 import { integer } from 'cervus/core/random';
 import { Thing } from './thing';
+import { physics_world } from './globals';
+import { RigidBody } from 'cervus/components';
 
 export class EnemyShape {
 	constructor() {
@@ -65,5 +67,12 @@ export class Enemy extends Thing {
 
 	kill() {
 		this.change_color('#00FF00');
+		this.elements.forEach(element => {
+			element.add_component(new RigidBody({
+				world: physics_world,
+				shape: 'box',
+				mass: 10
+			}));
+		});
 	}
 }
