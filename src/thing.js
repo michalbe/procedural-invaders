@@ -2,6 +2,7 @@ import { Render, Transform } from 'cervus/components';
 import { material } from './globals';
 import { Box } from 'cervus/shapes';
 import { Entity } from 'cervus/core/';
+import { enemies_zone } from './globals';
 
 export class Thing {
 	constructor(options = {}) {
@@ -55,12 +56,16 @@ export class Thing {
 	}
 
 	set position({x, y}) {
-		this.transform.position = [x, y, 0];
+		this.transform.position = [
+			x - enemies_zone.x,
+			y,
+			0
+		];
 	}
 
 	get position() {
 		return {
-			x: this.transform.position[0],
+			x: this.transform.position[0] + enemies_zone.x,
 			y: this.transform.position[1]
 		}
 	}

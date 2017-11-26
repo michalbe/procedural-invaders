@@ -62,4 +62,8 @@ export class Enemy extends Thing {
 		this.active_frame = this.count%this.frames_count;
 		this.group.add(this.frames[this.active_frame]);
 	}
+
+	kill() {
+		this.change_color('#00FF00');
+	}
 }
