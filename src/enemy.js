@@ -66,7 +66,6 @@ export class Enemy extends Thing {
 	}
 
 	kill() {
-		this.change_color('#00FF00');
 		this.group.entities.delete(this.frames[this.active_frame]);
 		Array.from(this.frames[this.active_frame].entities).forEach(element => {
 			element.parent = null;
