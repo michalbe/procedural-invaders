@@ -4,7 +4,7 @@ import { game, material, shoot_key, enemies_zone, physics_world } from './global
 import { set_seed, integer } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(2800967);
+set_seed(~~(Math.random()*1000000));
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
@@ -32,8 +32,8 @@ game.add(plane);
 
 
 const level = new Level({
-	rows: integer(2, 6),
-	cols: integer(3, 10),
+	rows: integer(2, 5),
+	cols: integer(3, 8),
 	dir: 1,
 	delay: 16,
 	enemy_color: (integer(10, 245)).toString(16) + '' + (integer(10, 245)).toString(16) + '' + (integer(10, 245)).toString(16)
