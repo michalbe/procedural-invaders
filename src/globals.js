@@ -3,10 +3,11 @@ import { PhongMaterial, WireframeMaterial } from 'cervus/materials';
 import { Render, Transform } from 'cervus/components';
 import { World } from 'cervus/physics';
 
+
 export const game = new Game({
   width: window.innerWidth,
   height: window.innerHeight,
-	clear_color: '#000000',
+	clear_color: '000000',
 	// fps: 1
 });
 window.game = game;
@@ -33,7 +34,7 @@ export function lighter_color(col, amt) {
     var b = ((num >> 8) & 0x00FF) + amt;
     var g = (num & 0x0000FF) + amt;
     var newColor = g | (b << 8) | (r << 16);
-    return newColor.toString(16);
+    return newColor.toString(16).substr(0, 8);
 }
 
 export const bullet_pool = [];

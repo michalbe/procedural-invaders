@@ -1,10 +1,11 @@
 import { Plane } from 'cervus/shapes';
-import { Render, Transform, RigidBody, Move } from 'cervus/components';
+import { Render, Transform, RigidBody } from 'cervus/components';
 import { game, material, shoot_key, enemies_zone, physics_world, bullet_pool } from './globals';
 import { set_seed, integer } from 'cervus/core/random';
 import { Level } from './level';
 
 set_seed(~~(Math.random() * 100000));
+// set_seed(100);
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
@@ -41,6 +42,7 @@ const level = new Level({
 	enemy_color: (integer(10, 245)).toString(16) + '' + (integer(10, 245)).toString(16) + '' + (integer(10, 245)).toString(16)
 });
 
+let ticks = 0;
 game.on('tick', (e) => {
 	const player_position = level.player.position;
 
@@ -64,7 +66,7 @@ game.on('tick', (e) => {
 		}
 	}
 
-	if (~~(e%level.delay) === 0) {
+	if (ticks%level.delay === 0) {
 		level.do_step();
 	}
 
@@ -106,4 +108,6 @@ game.on('tick', (e) => {
 	}
 
 	physics_world.step(1/game.fps);
+	ticks++;
+
 });

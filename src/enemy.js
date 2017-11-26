@@ -62,9 +62,9 @@ export class Enemy extends Thing {
 
 	change_frames() {
 		this.group.entities.delete(this.frames[this.active_frame]);
-		this.count++;
 		this.active_frame = this.count%this.frames_count;
 		this.group.add(this.frames[this.active_frame]);
+		this.count++;
 	}
 
 	kill() {
@@ -90,6 +90,6 @@ export class Enemy extends Thing {
 		});
 		setTimeout(() => {
 			this.remove_rigids_from_world()
-		}, 5000);
+		}, 2000);
 	}
 }
