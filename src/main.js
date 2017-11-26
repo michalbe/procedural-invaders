@@ -79,9 +79,7 @@ game.on('tick', (e) => {
 			bullet_pool.push(level.enemy_bullet);
 			level.enemy_bullet = false;
 			player.hit();
-		}
-
-		if (level.enemy_bullet.position.y < 0) {
+		} else if (level.enemy_bullet.position.y < 0) {
 			game.remove(level.enemy_bullet.group);
 			bullet_pool.push(level.enemy_bullet);
 			level.enemy_bullet = false;

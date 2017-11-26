@@ -1,6 +1,6 @@
 import { Thing } from './thing';
-import { Move } from 'cervus/components';
-import { wire_material, material } from './globals';
+import { Move, RigidBody } from 'cervus/components';
+import { wire_material, material, game, physics_world } from './globals';
 
 export class Player extends Thing {
 	constructor(options = {}) {
@@ -19,6 +19,8 @@ export class Player extends Thing {
 		this.color = 'CCCCCC';
 		this.frame = this.build_from_shape(this.shape);
 		this.group.add(this.frame);
+
+		this.lifes = 3;
 
 		this.move = new Move();
 		this.move.keyboard_controlled = true;
@@ -57,6 +59,17 @@ export class Player extends Thing {
 	}
 
 	hit() {
+		if (this.is_hit) {
+			return;
+		}
+
+		this.lifes--;
+		if (this.lifes === 0) {
+			this.destroy();
+			return;
+		}
+
+		this.is_hit = true;
 		this.elements.forEach(element => {
 			element.render_component.material = wire_material;
 		});
@@ -73,8 +86,29 @@ export class Player extends Thing {
 					this.elements.forEach(element => {
 						element.render_component.material = material;
 					});
+
+					this.is_hit = false;
 				}, 100);
 			}, 100);
 		}, 100);
+	}
+
+	destroy() {
+		Array.from(this.frame.entities).forEach(element => {
+			element.render_component.material = wire_material;
+			element.parent = null;
+			element.transform_component.scale = [this._scale, this._scale, this._scale ];
+			element.transform_component.position = [
+				element.transform_component.position[0] * this._scale + this.transform.position[0],
+				element.transform_component.position[1] * this._scale + this.transform.position[1],
+				0,
+			];
+			game.add(element);
+			element.add_component(new RigidBody({
+				world: physics_world,
+				shape: 'box',
+				mass: 40
+			}));
+		});
 	}
 }
