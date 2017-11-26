@@ -35,8 +35,9 @@ export class Thing {
 
 				const box = new Box();
 				this.elements.push(box);
-				box.get_component(Transform).position = [ x, y, 0 ];
 				box.render_component = box.get_component(Render);
+				box.transform_component = box.get_component(Transform);
+				box.transform_component.position = [ x, y, 0 ];
 				box.render_component.material = material;
 				box.render_component.color = this.color;
 				group.add(box);

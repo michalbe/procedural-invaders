@@ -1,6 +1,6 @@
 import { integer } from 'cervus/core/random';
 import { Thing } from './thing';
-import { physics_world } from './globals';
+import { physics_world, game } from './globals';
 import { RigidBody } from 'cervus/components';
 
 export class EnemyShape {
@@ -67,12 +67,31 @@ export class Enemy extends Thing {
 
 	kill() {
 		this.change_color('#00FF00');
-		this.elements.forEach(element => {
+		this.group.entities.delete(this.frames[this.active_frame]);
+		Array.from(this.frames[this.active_frame].entities).forEach(element => {
+			element.parent = null;
+			element.transform_component.scale = [this._scale, this._scale, this._scale ];
+			element.transform_component.position = [
+				element.transform_component.position[0] * this._scale + this.transform.position[0],
+				element.transform_component.position[1] * this._scale + this.transform.position[1],
+				0,
+			]
+			game.add(element);
 			element.add_component(new RigidBody({
 				world: physics_world,
 				shape: 'box',
 				mass: 10
 			}));
 		});
+		// this.elements.forEach(element => {
+		// 	// console.log(this.group.entities);
+		// 	this.group.entities.delete(element);
+		// 	// game.add(element);
+		// 	element.add_component(new RigidBody({
+		// 		world: physics_world,
+		// 		shape: 'box',
+		// 		mass: 10
+		// 	}));
+		// });
 	}
 }

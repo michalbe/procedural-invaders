@@ -74,7 +74,7 @@ export class Level {
 		this.player.scale = this.enemy_scale;
 		this.player.position = {
 			x: enemies_zone.x,
-			y: -0.45
+			y: 0.5
 		};
 
 		game.add(this.player.group);
