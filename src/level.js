@@ -33,10 +33,6 @@ export class Level {
 		this.spawn_player();
 	}
 
-	setup_bullet() {
-
-	}
-
 	setup_shapes() {
 		const shapes = integer(1, 4);
 		for (let i = 0; i< shapes; i++) {
@@ -58,9 +54,10 @@ export class Level {
 			color: this.enemy_color
 		});
 
+		window.enemy = enemy;
 		enemy.scale = this.enemy_scale;
 		enemy.position = {
-			x: x - (enemies_zone.x * this.dir) - (enemies_zone.x/2) + (this.margin * x),
+			x: x * this.dir + (this.margin * x),
 			y: enemies_zone.y - y - (this.margin * y)
 		};
 
@@ -76,7 +73,7 @@ export class Level {
 
 		this.player.scale = this.enemy_scale;
 		this.player.position = {
-			x: 0,
+			x: enemies_zone.x,
 			y: -0.45
 		};
 
@@ -123,7 +120,27 @@ export class Level {
 	}
 
 	stop_shooting() {
-		game.remove(this.bullet.group);
+		// game.remove(this.bullet.group);
 		this.is_shooting = false;
+	}
+
+	check_collision() {
+		if (!this.is_shooting) {
+			return;
+		}
+
+		let bullet_position = this.bullet.position;
+		let radius = 0.4;
+
+		bullet_position = {
+			x: bullet_position.x + 2.4,
+			y: bullet_position.y + 2.4
+		};
+
+		this.enemies.some(enemy => {
+			const enemy_position = enemy.position;
+			// if (bullet_position)
+		});
+
 	}
 }
