@@ -8,13 +8,17 @@ export class Bullet extends Thing {
 		super(options);
 
 		this.speed = 0.1;
-		
+
 		const box = new Box();
-		this.elements.push(box);
-		box.get_component(Transform).position = [ -10, -10, 0 ];
+		// this.elements.push(box);
+		this.transform = box.get_component(Transform);
+		this.transform.position = [ -10, -10, 0 ];
 		box.get_component(Render).material = material;
 		box.get_component(Render).color = '#FF0000';
-		this.group.add(box);
+
+		this.group = box;
+
+		// this.group.add(box);
 		this.scale = 0.2;
 	}
 }

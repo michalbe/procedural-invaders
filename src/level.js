@@ -113,8 +113,8 @@ export class Level {
 	shoot(position) {
 		this.is_shooting = true;
 		this.bullet.position = {
-			x: position.x + 2.5,
-			y: position.y + 3
+			x: position.x + 0.6,
+			y: position.y + 1
 		};
 		game.add(this.bullet.group);
 	}
@@ -130,16 +130,28 @@ export class Level {
 		}
 
 		let bullet_position = this.bullet.position;
-		let radius = 0.4;
+		let radius = 0.6;
 
 		bullet_position = {
-			x: bullet_position.x + 2.4,
-			y: bullet_position.y + 2.4
+			x: bullet_position.x - 0.4,
+			y: bullet_position.y - 0.4
 		};
 
 		this.enemies.some(enemy => {
 			const enemy_position = enemy.position;
-			// if (bullet_position)
+			if (
+				Math.sqrt(
+					Math.pow(bullet_position.x - enemy_position.x, 2) +
+					Math.pow(bullet_position.y - enemy_position.y, 2)
+				) < radius
+			) {
+				console.log('enemy', enemy_position);
+				console.log('bullet', bullet_position);
+				this.stop_shooting();
+				enemy.kill();
+				return true;
+			}
+			return false;
 		});
 
 	}

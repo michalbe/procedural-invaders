@@ -68,6 +68,8 @@ game.on('tick', (e) => {
 			y: level.bullet.position.y + level.bullet.speed
 		}
 
+		level.check_collision();
+		
 		if (level.bullet.position.y > 13) {
 			level.stop_shooting();
 		}
