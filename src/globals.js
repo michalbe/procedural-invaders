@@ -1,5 +1,5 @@
 import { Game } from 'cervus/core';
-import { PhongMaterial } from 'cervus/materials';
+import { PhongMaterial, WireframeMaterial } from 'cervus/materials';
 import { Render, Transform } from 'cervus/components';
 import { World } from 'cervus/physics';
 
@@ -16,6 +16,10 @@ export const material = new PhongMaterial({
   requires: [ Render, Transform ]
 });
 
+export const wire_material = new WireframeMaterial({
+  requires: [ Render, Transform ]
+});
+
 export const enemies_zone = {
 	x: 7,
 	y: 11
@@ -29,6 +33,5 @@ export function lighter_color(col, amt) {
     var b = ((num >> 8) & 0x00FF) + amt;
     var g = (num & 0x0000FF) + amt;
     var newColor = g | (b << 8) | (r << 16);
-    console.log(col, newColor.toString(16));
     return newColor.toString(16);
 }

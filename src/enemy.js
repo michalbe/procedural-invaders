@@ -1,6 +1,6 @@
 import { integer } from 'cervus/core/random';
 import { Thing } from './thing';
-import { physics_world, game } from './globals';
+import { physics_world, game, wire_material } from './globals';
 import { RigidBody } from 'cervus/components';
 
 export class EnemyShape {
@@ -70,6 +70,7 @@ export class Enemy extends Thing {
 	kill() {
 		this.group.entities.delete(this.frames[this.active_frame]);
 		Array.from(this.frames[this.active_frame].entities).forEach(element => {
+			element.render_component.material = wire_material;
 			element.parent = null;
 			element.transform_component.scale = [this._scale, this._scale, this._scale ];
 			element.transform_component.position = [
