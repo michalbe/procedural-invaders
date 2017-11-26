@@ -52,7 +52,7 @@ export class Thing {
 		this.transform.scale = [
 			scale,
 			scale,
-			scale
+			0.5
 		]
 	}
 

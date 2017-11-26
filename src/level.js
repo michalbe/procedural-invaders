@@ -106,10 +106,11 @@ export class Level {
 					y: enemy.position.y - 1
 				}
 			});
-		} else {
+		} else if (this.enemies.length > 0){
 			if (Math.random() > 0.3 || this.enemy_bullet) {
 				return;
 			}
+
 			const shooter = this.enemies[~~(Math.random() * this.enemies.length)];
 			this.enemy_shoot(shooter.position, shooter.color);
 		}

@@ -73,7 +73,7 @@ export class Enemy extends Thing {
 		Array.from(this.frames[this.active_frame].entities).forEach(element => {
 			element.render_component.material = wire_material;
 			element.parent = null;
-			element.transform_component.scale = [this._scale, this._scale, this._scale ];
+			element.transform_component.scale = this.transform.scale;
 			element.transform_component.position = [
 				element.transform_component.position[0] * this._scale + this.transform.position[0],
 				element.transform_component.position[1] * this._scale + this.transform.position[1],

@@ -1,5 +1,5 @@
 import { Plane } from 'cervus/shapes';
-import { Render, Transform, RigidBody } from 'cervus/components';
+import { Render, Transform, RigidBody, Move } from 'cervus/components';
 import { game, material, shoot_key, enemies_zone, physics_world, bullet_pool } from './globals';
 import { set_seed, integer } from 'cervus/core/random';
 import { Level } from './level';
@@ -9,15 +9,17 @@ set_seed(~~(Math.random() * 100000));
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
 const camera_transform = window.camera = game.camera.get_component(Transform);
-camera_transform.position = [0.424, 0.595, -12];
-camera_transform.rotation = [-0.112, 0, 0, 0.99];
+// camera_transform.position = [0.424, 0.595, -12];
+// camera_transform.rotation = [-0.112, 0, 0, 0.99];
+camera_transform.position = [0.424, 5.78, -13.5];
+camera_transform.rotation = [0.038, 0, 0, 0.99];
 
 // game.camera.get_component(Move).keyboard_controlled = true;
 
 const plane = new Plane();
 const plane_transform = plane.get_component(Transform);
 const plane_render = plane.get_component(Render);
-plane_transform.scale = [20, 1, 20];
+plane_transform.scale = [50, 1, 20];
 plane_transform.position = [0.5, -0.5, 0.5];
 plane_render.material = material;
 plane_render.color = "333333";
