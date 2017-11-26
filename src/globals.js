@@ -21,7 +21,7 @@ export const wire_material = new WireframeMaterial({
 });
 
 export const enemies_zone = {
-	x: 7,
+	x: 8,
 	y: 11
 };
 
@@ -35,3 +35,5 @@ export function lighter_color(col, amt) {
     var newColor = g | (b << 8) | (r << 16);
     return newColor.toString(16);
 }
+
+export const bullet_pool = [];
