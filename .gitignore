@@ -58,3 +58,4 @@ typings/
 .env
 
 dist/index.js
+package-lock.json
