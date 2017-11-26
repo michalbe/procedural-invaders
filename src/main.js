@@ -55,7 +55,7 @@ game.on('tick', (e) => {
 	}
 
 	if (~~(e%level.delay) === 0) {
-		// level.do_step();
+		level.do_step();
 	}
 
 	if (game.keys[shoot_key] && !level.is_shooting) {
@@ -69,7 +69,7 @@ game.on('tick', (e) => {
 		}
 
 		level.check_collision();
-		
+
 		if (level.bullet.position.y > 13) {
 			level.stop_shooting();
 		}

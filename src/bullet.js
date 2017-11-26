@@ -7,7 +7,7 @@ export class Bullet extends Thing {
 	constructor(options = {}) {
 		super(options);
 
-		this.speed = 0.1;
+		this.speed = 0.2;
 
 		const box = new Box();
 		// this.elements.push(box);

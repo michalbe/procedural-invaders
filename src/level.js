@@ -93,8 +93,8 @@ export class Level {
 		});
 
 		const hit_limit = this.enemies.some(enemy => {
-			return (this.dir === 1 && enemy.position.x > enemies_zone.x)
-				|| (this.dir === -1 && enemy.position.x < -enemies_zone.x);
+			return (this.dir === 1 && enemy.position.x > 14)
+				|| (this.dir === -1 && enemy.position.x < 0);
 		})
 
 		if (hit_limit) {
@@ -120,7 +120,7 @@ export class Level {
 	}
 
 	stop_shooting() {
-		// game.remove(this.bullet.group);
+		game.remove(this.bullet.group);
 		this.is_shooting = false;
 	}
 
@@ -145,8 +145,7 @@ export class Level {
 					Math.pow(bullet_position.y - enemy_position.y, 2)
 				) < radius
 			) {
-				console.log('enemy', enemy_position);
-				console.log('bullet', bullet_position);
+
 				this.stop_shooting();
 				enemy.kill();
 				return true;
