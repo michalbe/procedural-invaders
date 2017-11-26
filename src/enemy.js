@@ -85,15 +85,5 @@ export class Enemy extends Thing {
 				mass: 40
 			}));
 		});
-		// this.elements.forEach(element => {
-		// 	// console.log(this.group.entities);
-		// 	this.group.entities.delete(element);
-		// 	// game.add(element);
-		// 	element.add_component(new RigidBody({
-		// 		world: physics_world,
-		// 		shape: 'box',
-		// 		mass: 10
-		// 	}));
-		// });
 	}
 }

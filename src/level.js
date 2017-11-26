@@ -1,13 +1,15 @@
 import { Enemy, EnemyShape } from './enemy';
 import { Player} from './player';
 import { Bullet } from './bullet';
-import { game, enemies_zone } from './globals';
+import { game, enemies_zone, bullet_pool } from './globals';
 import { integer } from 'cervus/core/random';
 
 export class Level {
 	constructor(options = {}) {
 		this.enemies = [];
+		this.enemy_bullet = false;
 
+		this.bullet_speed = options.bullet_speed || 0.1;
 		this.shapes = [];
 
 		this.is_shooting = false;
@@ -92,8 +94,8 @@ export class Level {
 		});
 
 		const hit_limit = this.enemies.some(enemy => {
-			return (this.dir === 1 && enemy.position.x > 14)
-				|| (this.dir === -1 && enemy.position.x < 0);
+			return (this.dir === 1 && enemy.position.x > (enemies_zone.x * 2))
+				|| (this.dir === -1 && enemy.position.x < -1);
 		})
 
 		if (hit_limit) {
@@ -104,9 +106,34 @@ export class Level {
 					y: enemy.position.y - 1
 				}
 			});
+		} else {
+			if (Math.random() > 0.3 || this.enemy_bullet) {
+				return;
+			}
+			const shooter = this.enemies[~~(Math.random() * this.enemies.length)];
+			this.enemy_shoot(shooter.position, shooter.color);
 		}
 
 		this.steps++;
+	}
+
+	enemy_shoot(position, color) {
+		let bullet;
+		if (bullet_pool.length) {
+			bullet = bullet_pool.pop();
+		} else {
+			bullet = new Bullet({
+				color: color
+			});
+		}
+
+		bullet.position = {
+			x: position.x + 0.4,
+			y: position.y
+		};
+
+		this.enemy_bullet = bullet;
+		game.add(bullet.group);
 	}
 
 	shoot(position) {
