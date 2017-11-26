@@ -137,7 +137,7 @@ export class Level {
 			y: bullet_position.y - 0.4
 		};
 
-		this.enemies.some(enemy => {
+		this.enemies.some((enemy, index) => {
 			const enemy_position = enemy.position;
 			if (
 				Math.sqrt(
@@ -147,7 +147,9 @@ export class Level {
 			) {
 
 				this.stop_shooting();
+				this.enemies.splice(index, 1);
 				enemy.kill();
+
 				return true;
 			}
 			return false;
