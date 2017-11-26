@@ -68,6 +68,7 @@ export class Enemy extends Thing {
 	}
 
 	kill() {
+		this.elements = [];
 		this.group.entities.delete(this.frames[this.active_frame]);
 		Array.from(this.frames[this.active_frame].entities).forEach(element => {
 			element.render_component.material = wire_material;
@@ -79,11 +80,16 @@ export class Enemy extends Thing {
 				0,
 			];
 			game.add(element);
-			element.add_component(new RigidBody({
+			this.elements.push(element);
+			element.rigid_body_component = new RigidBody({
 				world: physics_world,
 				shape: 'box',
 				mass: 40
-			}));
+			});
+			element.add_component(element.rigid_body_component);
 		});
+		setTimeout(() => {
+			this.remove_rigids_from_world()
+		}, 5000);
 	}
 }

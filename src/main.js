@@ -1,7 +1,7 @@
 import { Plane } from 'cervus/shapes';
 import { Render, Transform, RigidBody } from 'cervus/components';
 import { game, material, shoot_key, enemies_zone, physics_world, bullet_pool } from './globals';
-import { set_seed, integer, element_of } from 'cervus/core/random';
+import { set_seed, integer } from 'cervus/core/random';
 import { Level } from './level';
 
 set_seed(~~(Math.random() * 100000));
@@ -78,7 +78,7 @@ game.on('tick', (e) => {
 			game.remove(level.enemy_bullet.group);
 			bullet_pool.push(level.enemy_bullet);
 			level.enemy_bullet = false;
-			player.hit();
+			level.player.hit();
 		} else if (level.enemy_bullet.position.y < 0) {
 			game.remove(level.enemy_bullet.group);
 			bullet_pool.push(level.enemy_bullet);

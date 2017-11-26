@@ -42,7 +42,7 @@ export class Player extends Thing {
 		// };
 // this.position
 
-		return bullets.some((bullet, index) => {
+		return bullets.some((bullet) => {
 			window.bullet = bullet;
 			// console.log(bullet.position, this.position);
 			const bullet_position = bullet.position;
@@ -94,6 +94,7 @@ export class Player extends Thing {
 	}
 
 	destroy() {
+		this.elements = [];
 		Array.from(this.frame.entities).forEach(element => {
 			element.render_component.material = wire_material;
 			element.parent = null;
@@ -104,11 +105,17 @@ export class Player extends Thing {
 				0,
 			];
 			game.add(element);
-			element.add_component(new RigidBody({
+			this.elements.push(element);
+			element.rigid_body_component = new RigidBody({
 				world: physics_world,
 				shape: 'box',
 				mass: 40
-			}));
+			});
+			element.add_component(element.rigid_body_component);
 		});
+
+		setTimeout(() => {
+			this.remove_rigids_from_world()
+		}, 2000);
 	}
 }

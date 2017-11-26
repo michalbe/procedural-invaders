@@ -2,7 +2,7 @@ import { Render, Transform } from 'cervus/components';
 import { material } from './globals';
 import { Box } from 'cervus/shapes';
 import { Entity } from 'cervus/core/';
-import { enemies_zone, lighter_color } from './globals';
+import { enemies_zone, lighter_color, physics_world } from './globals';
 
 export class Thing {
 	constructor(options = {}) {
@@ -74,6 +74,12 @@ export class Thing {
 	change_color(color) {
 		this.elements.forEach((el) => {
 			el.render_component.color = color;
+		});
+	}
+
+	remove_rigids_from_world() {
+		this.elements.forEach(element => {
+			physics_world.removeRigidBody(element.rigid_body_component.body);
 		});
 	}
 }
