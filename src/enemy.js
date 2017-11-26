@@ -74,12 +74,12 @@ export class Enemy extends Thing {
 				element.transform_component.position[0] * this._scale + this.transform.position[0],
 				element.transform_component.position[1] * this._scale + this.transform.position[1],
 				0,
-			]
+			];
 			game.add(element);
 			element.add_component(new RigidBody({
 				world: physics_world,
 				shape: 'box',
-				mass: 10
+				mass: 40
 			}));
 		});
 		// this.elements.forEach(element => {
