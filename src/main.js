@@ -1,10 +1,10 @@
 import { Plane } from 'cervus/shapes';
 import { Render, Transform, RigidBody } from 'cervus/components';
 import { game, material, shoot_key, enemies_zone, physics_world, bullet_pool } from './globals';
-import { set_seed, integer } from 'cervus/core/random';
+import { set_seed, integer, element_of } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(20202);
+set_seed(~~(Math.random() * 100000));
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
@@ -70,6 +70,15 @@ game.on('tick', (e) => {
 		level.enemy_bullet.position = {
 			x: level.enemy_bullet.position.x,
 			y: level.enemy_bullet.position.y - level.bullet_speed
+		}
+
+		const player_hit = level.player.is_colliding_with_bullets([level.enemy_bullet]);
+
+		if (player_hit) {
+			game.remove(level.enemy_bullet.group);
+			bullet_pool.push(level.enemy_bullet);
+			level.enemy_bullet = false;
+			player.hit();
 		}
 
 		if (level.enemy_bullet.position.y < 0) {

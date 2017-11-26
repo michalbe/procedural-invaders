@@ -9,7 +9,7 @@ export const game = new Game({
 	clear_color: '#000000',
 	// fps: 1
 });
-
+window.game = game;
 export const physics_world = new World();
 
 export const material = new PhongMaterial({

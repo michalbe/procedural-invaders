@@ -70,7 +70,7 @@ export class Level {
 	}
 
 	spawn_player() {
-		this.player = new Player();
+		this.player = window.player = new Player();
 
 		this.player.scale = this.enemy_scale;
 		this.player.position = {
@@ -83,9 +83,9 @@ export class Level {
 
 	do_step() {
 		this.enemies.forEach(enemy => {
-			if (this.steps%2 === 0) {
+			// if (this.steps%2 === 0) {
 				enemy.change_frames();
-			}
+			// }
 
 			enemy.position = {
 				x: enemy.position.x + (this.enemy_step * this.dir),

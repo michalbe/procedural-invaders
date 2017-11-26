@@ -1,5 +1,6 @@
 import { Thing } from './thing';
 import { Move } from 'cervus/components';
+import { wire_material, material } from './globals';
 
 export class Player extends Thing {
 	constructor(options = {}) {
@@ -28,5 +29,52 @@ export class Player extends Thing {
 		delete this.move.dir_desc['87'];
 		delete this.move.dir_desc['83'];
 		this.group.add_component(this.move);
+	}
+
+	is_colliding_with_bullets(bullets) {
+		let radius = 0.6;
+
+		// const player_position = {
+		// 	x: this.position.x - 0.4,
+		// 	y: this.position.y - 0.4
+		// };
+// this.position
+
+		return bullets.some((bullet, index) => {
+			window.bullet = bullet;
+			// console.log(bullet.position, this.position);
+			const bullet_position = bullet.position;
+			if (
+				Math.sqrt(
+					Math.pow(this.position.x - bullet_position.x + 0.4, 2) +
+					Math.pow(this.position.y - bullet_position.y + 0.4, 2)
+				) < radius
+			) {
+				return true;
+			}
+			return false;
+		});
+	}
+
+	hit() {
+		this.elements.forEach(element => {
+			element.render_component.material = wire_material;
+		});
+
+		setTimeout(() => {
+			this.elements.forEach(element => {
+				element.render_component.material = material;
+			});
+			setTimeout(() => {
+				this.elements.forEach(element => {
+					element.render_component.material = wire_material;
+				});
+				setTimeout(() => {
+					this.elements.forEach(element => {
+						element.render_component.material = material;
+					});
+				}, 100);
+			}, 100);
+		}, 100);
 	}
 }
