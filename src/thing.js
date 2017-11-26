@@ -19,13 +19,13 @@ export class Thing {
 
 	}
 
-	build_from_shape(shape, visible = true) {
+	build_from_shape(shape) {
 		const group = new Entity({
 			components: [
 				new Transform()
 			]
 		});
-		
+
 		shape.forEach((row, y) => {
 			row.forEach((el, x) => {
 				if (el === 0) {
@@ -35,8 +35,9 @@ export class Thing {
 				const box = new Box();
 				this.elements.push(box);
 				box.get_component(Transform).position = [ x, y, 0 ];
-				box.get_component(Render).material = material;
-				box.get_component(Render).color = this.color;
+				box.render_component = box.get_component(Render);
+				box.render_component.material = material;
+				box.render_component.color = this.color;
 				group.add(box);
 			});
 		});
@@ -62,5 +63,11 @@ export class Thing {
 			x: this.transform.position[0],
 			y: this.transform.position[1]
 		}
+	}
+
+	change_color(color) {
+		this.elements.forEach((el) => {
+			el.render_component.color = color;
+		});
 	}
 }
