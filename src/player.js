@@ -1,6 +1,6 @@
 import { Thing } from './thing';
 import { Move, RigidBody } from 'cervus/components';
-import { wire_material, material, game, physics_world } from './globals';
+import { UI, wire_material, material, game, physics_world } from './globals';
 
 export class Player extends Thing {
 	constructor(options = {}) {
@@ -115,7 +115,9 @@ export class Player extends Thing {
 		});
 
 		setTimeout(() => {
-			this.remove_rigids_from_world()
+			this.remove_rigids_from_world();
+			game.stop();
+			UI.game_over();
 		}, 2000);
 	}
 }

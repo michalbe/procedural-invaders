@@ -1,7 +1,7 @@
 import { Enemy, EnemyShape } from './enemy';
 import { Player} from './player';
 import { Bullet } from './bullet';
-import { game, enemies_zone, bullet_pool } from './globals';
+import { UI, game, enemies_zone, bullet_pool } from './globals';
 import { integer } from 'cervus/core/random';
 
 export class Level {
@@ -105,7 +105,14 @@ export class Level {
 					x: enemy.position.x,
 					y: enemy.position.y - 1
 				}
+
+				if (enemy.position.y < 2) {
+					game.stop();
+					UI.game_over();
+					return;
+				}
 			});
+
 		} else if (this.enemies.length > 0){
 			if (Math.random() > 0.3 || this.enemy_bullet) {
 				return;
@@ -176,11 +183,17 @@ export class Level {
 				this.stop_shooting();
 				this.enemies.splice(index, 1);
 				enemy.kill();
-
 				return true;
 			}
 			return false;
 		});
 
+		if (this.enemies.length === 0) {
+			setTimeout(() => {
+				game.stop();
+				UI.next_level();
+			}, 2000);
+
+		}
 	}
 }

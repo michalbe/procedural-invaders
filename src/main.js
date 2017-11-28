@@ -4,8 +4,12 @@ import { game, material, shoot_key, enemies_zone, physics_world, bullet_pool } f
 import { set_seed, integer } from 'cervus/core/random';
 import { Level } from './level';
 
-set_seed(~~(Math.random() * 100000));
-// set_seed(100);
+const default_seed = 43565767;//67238934;
+if (!window.location.hash) {
+	window.location.hash = '#' + default_seed;
+}
+const seed = window.location.hash.slice(1);
+set_seed(seed);
 
 const light = game.light.get_component(Transform);
 light.position = [0, 0, -2];
@@ -35,15 +39,15 @@ game.add(plane);
 
 
 const level = new Level({
-	rows: integer(2, 5),
-	cols: integer(3, 8),
+	rows: integer(3, 5),
+	cols: integer(5, 8),
 	dir: 1,
-	delay: 16,
+	delay: integer(10, 16),
 	enemy_color: (integer(10, 245)).toString(16) + '' + (integer(10, 245)).toString(16) + '' + (integer(10, 245)).toString(16)
 });
 
 let ticks = 0;
-game.on('tick', (e) => {
+game.on('tick', () => {
 	const player_position = level.player.position;
 
 	light.position = [

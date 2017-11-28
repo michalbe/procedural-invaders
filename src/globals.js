@@ -10,7 +10,7 @@ export const game = new Game({
 	clear_color: '000000',
 	// fps: 1
 });
-window.game = game;
+
 export const physics_world = new World();
 
 export const material = new PhongMaterial({
@@ -38,3 +38,21 @@ export function lighter_color(col, amt) {
 }
 
 export const bullet_pool = [];
+
+
+export const UI = {
+	show_overlay() {
+		const overlay = document.querySelector('.overlay');
+		overlay.style.display = 'block';
+	},
+
+	game_over() {
+		this.show_overlay();
+		document.querySelector('.button.replay').style.display = 'block';
+	},
+
+	next_level() {
+		this.show_overlay();
+		document.querySelector('.button.next_level').style.display = 'block';
+	}
+}

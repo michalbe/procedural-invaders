@@ -1,14 +1,80 @@
 <html>
 <head>
-  <title>CERVUS BOILERPLATE</title>
+  <title>Procedural Invaders</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <style>
     html, body {
       padding: 0;
       margin: 0;
-      overflow: hidden
+      overflow: hidden;
+			font-family: 'Montserrat', sans-serif;
     }
+
+		.footer {
+			position: absolute;
+			bottom: 0;
+			padding: 5px;
+			font-size: 10px;
+			color: white;
+		}
+
+		a {
+			color: #AAA;
+			text-decoration: none;
+		}
+
+		.overlay {
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: rgba(0, 0, 0, 0.7);
+			text-align: center;
+			display: none;
+		}
+
+		.overlay .button {
+			font-size: 40px;
+			color: white;
+			width: 250px;
+			margin: auto;
+			top: 50%;
+			position: relative;
+			transform: translateY(-50%);
+			cursor: pointer;
+			display: none;
+		}
+
   </style>
 </head>
 <body>
   <script src="index.js"></script>
+	<div class="overlay">
+		<div class="button replay">
+			Replay
+		</div>
+		<div class="button next_level">
+			Next Level
+		</div>
+	</div>
+	<div class="footer">
+		Control with <b>A + D + SPACE</b><br/>
+		Built for <a href="https://twitter.com/hashtag/GitHubGameOff?src=hash">#GithubGameOff</a>
+		 by <a href="http://github.com/michalbe">@michalbe</a> with <a href="https://github.com/michalbe/cervus">cervus</a>
+	</div>
+
+	<script>
+		document.querySelector('.overlay').addEventListener('click', (e) => {
+			switch (true) {
+				case e.target.classList.contains('next_level'):
+				console.log('elo!');
+					const seed = ~~(Math.random() * 9999999);
+					window.location.hash = '#' + seed;
+				case e.target.classList.contains('replay'):
+					window.location.reload();
+					break;
+			}
+		});
+	</script>
 </body>
